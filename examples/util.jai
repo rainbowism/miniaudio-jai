@@ -1,10 +1,10 @@
 #if OS == .WINDOWS {
     input :: () -> string {
-        stdin = GetStdHandle(STD_INPUT_HANDLE);
         MAX_BYTES_TO_READ :: 1024;
-        buffer: [MAX_BYTES_TO_READ]u8;
-        result: string = ---;
-        bytes_read : s32;
+        buffer:     [MAX_BYTES_TO_READ]u8;
+        result:     string = ---;
+        bytes_read: s32;
+        stdin = GetStdHandle(STD_INPUT_HANDLE);
 
         if !ReadConsoleA(stdin, buffer.data, xx buffer.count, *bytes_read) return "";
 

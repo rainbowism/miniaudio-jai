@@ -13,22 +13,24 @@ generate_bindings :: () -> bool {
 
         #if OS == .WINDOWS {
             array_add(*libpaths, "win");
-            output_filename = "windows.jai";
-            header          = WINDOWS_HEADER;
+            output_filename                       = "windows.jai";
+            generate_foreign_library_declarations = false;
+            footer                                = WINDOWS_FOOTER;
         } else #if OS == .LINUX {
             #assert false;
-            array_add(*libpaths, "linux");
-            output_name                           = "unix.jai";
-            generate_foreign_library_declarations = false;
-            footer                                = UNIX_FOOTER;
+            // @Todo(sushi): set up builds for linux and macos
+            // array_add(*libpaths, "linux");
+            // output_name                           = "unix.jai";
+            // generate_foreign_library_declarations = false;
+            // footer                                = UNIX_FOOTER;
         } else #if OS == .MACOS {
             #assert false;
             // @ToDo: Determine dynamically? Customize?
-            array_add(*system_include_paths, "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include");
-            array_add(*libpaths, "mac");
-            output_name                           = "unix.jai";
-            generate_foreign_library_declarations = false;
-            footer                                = UNIX_FOOTER;
+            // array_add(*system_include_paths, "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include");
+            // array_add(*libpaths, "mac");
+            // output_name                           = "unix.jai";
+            // generate_foreign_library_declarations = false;
+            // footer                                = UNIX_FOOTER;
         } else {
             #assert false;
         }
@@ -48,19 +50,19 @@ generate_bindings :: () -> bool {
 #import "Bindings_Generator";
 #import "File";
 
-WINDOWS_HEADER :: #string END
+WINDOWS_FOOTER :: #string END
 size_t :: s32;
 wchar_t :: u16;
+
+miniaudio :: #foreign_library,no_dll "win/miniaudio";
 
 END
 
 UNIX_FOOTER :: #string END
-#scope_file
-
 #if OS == .LINUX {
-    freetype :: #foreign_library "linux/freetype";
+    miniaudio :: #foreign_library "linux/miniaudio";
 } else {
-    freetype :: #foreign_library "macos/freetype";
+    miniaudio :: #foreign_library "mac/miniaudio";
 }
 
 END

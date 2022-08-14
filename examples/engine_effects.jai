@@ -36,9 +36,9 @@ main :: () {
 
     Creating a node requires a pointer to the node graph that owns it. The engine itself is a node
     graph. In the code below we can get a pointer to the node graph with ma_engine_get_node_graph()
-    or we could simple cast the engine to a ma_node_graph* like so:
+    or we could simple cast the engine to a *ma_node_graph like so:
 
-        (*ma_node_graph)*engine
+        `cast(*ma_node_graph) *engine` or `xx *engine`
 
     The endpoint of the graph can be retrieved with ma_engine_get_endpoint().
     */

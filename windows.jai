@@ -5,10 +5,6 @@
 //
 
 
-size_t :: s32;
-wchar_t :: u16;
-
-
 MA_VERSION_MAJOR :: 0;
 MA_VERSION_MINOR :: 11;
 MA_VERSION_REVISION :: 9;
@@ -6453,5 +6449,8 @@ ma_sound_group_set_fade_in_milliseconds :: (pGroup: *ma_sound_group, volumeBeg: 
 ma_sound_group_get_current_fade_volume :: (pGroup: *ma_sound_group) -> float #foreign miniaudio;
 
 #scope_file
+
+size_t :: s32;
+wchar_t :: u16;
 
 miniaudio :: #foreign_library,no_dll "win/miniaudio";
