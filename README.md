@@ -27,6 +27,7 @@ main :: () {
         print("Failed to initialize audio engine.");
         exit(-1);
     }
+    defer ma_engine_uninit(*engine);
 
     result = ma_engine_play_sound(*engine, args[1].data, null);
     if result != ma_result.SUCCESS {
@@ -35,9 +36,7 @@ main :: () {
     }
 
     print("Press Enter to quit...");
-    test := input();
-
-    ma_engine_uninit(*engine);
+    input();
 }
 ```
 
